@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import org.wit.hillfort.R
-import org.wit.hillfort.views.hillfortlist.HillfortListView
+import org.wit.hillfort.views.login.LoginView
 
 class SplashScreenActivity : AppCompatActivity()
 {
@@ -16,7 +16,7 @@ class SplashScreenActivity : AppCompatActivity()
     internal val runnable: Runnable = Runnable {
         if(!isFinishing)
         {
-            val intent = Intent(applicationContext, HillfortListView::class.java)
+            val intent = Intent(applicationContext, LoginView::class.java)
             startActivity(intent)
             finish()
         }

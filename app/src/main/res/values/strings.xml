@@ -1,22 +1,25 @@
 <resources>
-  <string name="app_name">Hillfort</string>
-  <string name="hint_hillfortTitle">Hillfort Title</string>
-  <string name="hint_hillfortDescription">Description </string>
-  <string name="button_addhillfort">Add Hillfort</string>
-  <string name="menu_addhillfort">Add</string>
-  <string name="menu_savehillfort">Save</string>
-  <string name="enter_hillfort_title"> Please enter a Hillfort Title </string>
-  <string name="save_hillfort"> Save Hillfort </string>
-  <string name="button_addImage"> Add Image </string>
-  <string name="select_hillfort_image">Select hillfort image</string>
-  <string name="change_hillfort_image">Change hillfort image</string>
-  <string name="button_location">Set Location</string>
-  <string name="title_activity_maps">Map</string>
-  <string name="menu_deletehillfort">Delete</string>
-  <string name="title_activity_hillfort_maps">Map of all Hillforts</string>
-  <string name="title_activity_hillfort_list">Hillforts</string>
-  <string name="title_activity_hillfort">Hillfort</string>
-  <string name="title_activity_edit_location">Hillfort</string>
-  <string name="google_maps_key">AIzaSyA_zYN4CDKhlfploYsALl3hLYDw5HDAfM8</string>
+    <string name="app_name">Hillfort</string>
+    <string name="hint_hillfortTitle">Hillfort Title</string>
+    <string name="hint_hillfortDescription">Description </string>
+    <string name="button_addhillfort">Add Hillfort</string>
+    <string name="menu_addhillfort">Add</string>
+    <string name="menu_savehillfort">Save</string>
+    <string name="enter_hillfort_title"> Please enter a Hillfort Title </string>
+    <string name="save_hillfort"> Save Hillfort </string>
+    <string name="button_addImage"> Add Image </string>
+    <string name="select_hillfort_image">Select hillfort image</string>
+    <string name="change_hillfort_image">Change hillfort image</string>
+    <string name="button_location">Set Location</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="menu_deletehillfort">Delete</string>
+    <string name="title_activity_hillfort_maps">Map of all Hillforts</string>
+    <string name="title_activity_hillfort_list">Hillforts</string>
+    <string name="title_activity_hillfort">Hillfort</string>
+    <string name="title_activity_edit_location">Hillfort</string>
+    <string name="google_maps_key">AIzaSyA_zYN4CDKhlfploYsALl3hLYDw5HDAfM8</string>
+    <string name="login_signup">Sign up/Login</string>
+    <string name="menu_showMap">Show Map</string>
+    <string name="menu_logout">Logout</string>
 
 </resources>

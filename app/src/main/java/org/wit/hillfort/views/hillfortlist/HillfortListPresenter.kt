@@ -31,4 +31,9 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view)
             view?.showhillforts(app.hillforts.findAll())
         }
     }
+
+    fun doLogout()
+    {
+        view?.navigateTo(VIEW.LOGIN)
+    }
 }
