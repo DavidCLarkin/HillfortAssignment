@@ -56,7 +56,7 @@ class HillfortStoreRoom(val context: Context) : HillfortStore
         }
     }
 
-    fun clear()
+    override fun clear()
     {
     }
 }
