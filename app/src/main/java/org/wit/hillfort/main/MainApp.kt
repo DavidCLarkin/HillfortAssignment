@@ -17,6 +17,7 @@ class MainApp : Application(), AnkoLogger
         super.onCreate()
         //hillforts = hillfortJSONStore(applicationContext)
         //hillforts = HillfortStoreRoom(applicationContext)
+        //test
         hillforts = HillfortFireStore(applicationContext)
         info("hillfort started")
     }
