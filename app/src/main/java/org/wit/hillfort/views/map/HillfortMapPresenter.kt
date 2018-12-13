@@ -18,10 +18,10 @@ class HillfortMapPresenter(view: BaseView) : BasePresenter(view)
     {
         map.uiSettings.setZoomControlsEnabled(true)
         hillforts.forEach {
-            val loc = LatLng(it.lat, it.lng)
+            val loc = LatLng(it.location.lat, it.location.lng)
             val options = MarkerOptions().title(it.title).position(loc)
             map.addMarker(options).tag = it.id
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.location.zoom))
         }
     }
 
