@@ -60,7 +60,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger
         val user = FirebaseAuth.getInstance().currentUser
         if(user != null)
         {
-            toolbar.title = "$dadad{title}: ${user.email}"
+            toolbar.title = "${title}: ${user.email}"
         }
     }
 
