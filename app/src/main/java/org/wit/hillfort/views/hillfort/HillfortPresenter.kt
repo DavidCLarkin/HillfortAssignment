@@ -1,6 +1,7 @@
 package org.wit.hillfort.views.hillfort
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.content.Intent
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -10,6 +11,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_hillfort.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.wit.hillfort.helpers.checkLocationPermissions
@@ -19,6 +21,7 @@ import org.wit.hillfort.helpers.showImagePicker
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.models.Location
 import org.wit.hillfort.views.*
+import java.util.*
 
 class HillfortPresenter(view: BaseView) : BasePresenter(view)
 {
@@ -105,10 +108,13 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
     }
 
 
-    fun doAddOrSave(title: String, description: String)
+    fun doAddOrSave(title: String, description: String, notes: String, visited: Boolean, date: String)
     {
         hillfort.title = title
         hillfort.description = description
+        hillfort.notes = notes
+        hillfort.visited = visited
+        hillfort.date = date
         async(UI) {
             if (edit)
             {
@@ -163,4 +169,31 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
             }
         }
     }
+
+    fun doSetDate()
+    {
+        if (view!!.checkBox.isChecked)
+        {
+            hillfort.visited = true
+
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val dpd = DatePickerDialog(view!!, DatePickerDialog.OnDateSetListener{ DatePicker, mYear, mMonth, mDay ->
+                view?.date?.setText("" + mDay + "/" + mMonth + "/" + mYear)
+            }, year, month, day )
+
+            dpd.show()
+            hillfort.date = view?.date?.text.toString()
+        }
+        else
+        {
+            hillfort.visited = false
+            view?.date?.setText("")
+            hillfort.date = ""
+        }
+    }
+
 }

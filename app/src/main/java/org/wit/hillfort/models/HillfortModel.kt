@@ -10,9 +10,12 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 data class HillfortModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                          var fbId : String = "",
-                          var title: String = "",
-                          var description: String = "",
-                          var image: String = "",
+                         var title: String = "",
+                         var description: String = "",
+                         var notes: String = "",
+                         var visited: Boolean = false,
+                         var date: String = "",
+                         var image: String = "",
                          @Embedded var location: Location = Location()) : Parcelable
 
 @Parcelize

@@ -21,5 +21,8 @@
     <string name="login_signup">Sign up/Login</string>
     <string name="menu_showMap">Show Map</string>
     <string name="menu_logout">Logout</string>
+    <string name="hint_hillfortNotes">Notes</string>
+    <string name="checkbox_visited">Visited</string>
+    <string name="date">Date Visited</string>
 
 </resources>

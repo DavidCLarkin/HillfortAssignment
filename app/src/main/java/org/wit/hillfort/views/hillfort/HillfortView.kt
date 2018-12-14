@@ -28,19 +28,27 @@ class HillfortView : BaseView(), AnkoLogger
 
         presenter = initPresenter(HillfortPresenter(this)) as HillfortPresenter
 
-        mapView.onCreate(savedInstanceState);
+        mapView.onCreate(savedInstanceState)
         mapView.getMapAsync {
             presenter.doConfigureMap(it)
             it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
         chooseImage.setOnClickListener { presenter.doSelectImage() }
+
+        checkBox.setOnClickListener()
+        {
+            presenter.doSetDate()
+        }
     }
 
     override fun showhillfort(hillfort: HillfortModel)
     {
         hillfortTitle.setText(hillfort.title)
         description.setText(hillfort.description)
+        notes.setText(hillfort.notes)
+        checkBox.isChecked = !hillfort.date.isEmpty()
+        date.setText(hillfort.date)
         Glide.with(this).load(hillfort.image).into(hillfortImage)
         if (hillfort.image != null)
         {
@@ -71,7 +79,7 @@ class HillfortView : BaseView(), AnkoLogger
                     toast(R.string.enter_hillfort_title)
                 } else
                 {
-                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString())
+                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), notes.text.toString(), checkBox.isChecked, date.text.toString())
                 }
             }
         }
