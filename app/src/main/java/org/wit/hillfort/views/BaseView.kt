@@ -91,6 +91,11 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger
     {
     }
 
+    open fun setUpField(numOfHillforts: Int)
+    {
+
+    }
+
     open fun showhillforts(hillforts: List<HillfortModel>)
     {
     }

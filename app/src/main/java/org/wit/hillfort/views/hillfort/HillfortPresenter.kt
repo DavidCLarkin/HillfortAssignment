@@ -11,6 +11,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -115,6 +116,7 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
         hillfort.notes = notes
         hillfort.visited = visited
         hillfort.date = date
+        hillfort.usersId = FirebaseAuth.getInstance().currentUser!!.uid
         async(UI) {
             if (edit)
             {
