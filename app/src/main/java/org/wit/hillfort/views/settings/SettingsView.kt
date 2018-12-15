@@ -28,12 +28,26 @@ class SettingsView : BaseView()
             presenter.doCancelSettings()
         }
 
-        println("TEXT FIELD: " +numbOfHillforts.text.toString())
     }
 
-    override fun setUpField(numOfHillforts: Int)
+    override fun setUpNumberOfHillforts(numOfHillforts: Int)
     {
         //lng.setText("%.6f".format(hillfort.location.lng))
         numbOfHillforts.setText(numbOfHillforts.text.toString() + " "+numOfHillforts)
+    }
+
+    override fun setUpNumberOfHillfortsVisited(numOfHillfortsVisited: Int)
+    {
+        numbOfHillfortsVisited.setText(numbOfHillfortsVisited.text.toString() + " " + numOfHillfortsVisited)
+    }
+
+    override fun setUpEmailField(email: String)
+    {
+        emailField.setText(email)
+    }
+
+    override fun setUpPasswordField(password: String)
+    {
+        passwordField.setText(password)
     }
 }

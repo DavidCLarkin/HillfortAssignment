@@ -16,14 +16,13 @@ class SettingsPresenter(view: BaseView) : BasePresenter(view)
     init
     {
         val id = FirebaseAuth.getInstance().currentUser!!.uid
-        //println("USERID: " + id)
         async(UI) {
-            view.setUpField(app.hillforts.findAll().filter { it.usersId == id }.size)
+            view.setUpNumberOfHillforts(app.hillforts.findAll().filter { it.usersId == id }.size)
+            view.setUpNumberOfHillfortsVisited(app.hillforts.findAll().filter { it.usersId == id}.filter { it.visited }.size)
+            view.setUpEmailField(FirebaseAuth.getInstance().currentUser?.email!!)
+            view.setUpPasswordField("********")
         }
 
-        //println("HILLFORTS SIZE"+hillforts.size)
-        //println("LISTSIZE:" + hillforts.size)
-        //view.setUpField(hillforts.size)
     }
 
     fun doSaveSettings()

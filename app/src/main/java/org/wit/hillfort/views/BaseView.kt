@@ -91,10 +91,17 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger
     {
     }
 
-    open fun setUpField(numOfHillforts: Int)
-    {
+    open fun setUpNumberOfHillforts(numOfHillforts: Int)
+    {}
 
-    }
+    open fun setUpNumberOfHillfortsVisited(numOfHillfortsVisited: Int)
+    {}
+
+    open fun setUpEmailField(email: String)
+    {}
+
+    open fun setUpPasswordField(password: String)
+    {}
 
     open fun showhillforts(hillforts: List<HillfortModel>)
     {
