@@ -24,5 +24,12 @@
     <string name="hint_hillfortNotes">Notes</string>
     <string name="checkbox_visited">Visited</string>
     <string name="date">Date Visited</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="cancel_button_settings">Cancel</string>
+    <string name="numberofHillforts">Number of Hillforts: </string>
+    <string name="button_saveSettings">Save Settings</string>
+    <string name="hillforts_visited">Hillforts Visited: </string>
+    <string name="menu_settings">Settings</string>
 
 </resources>
