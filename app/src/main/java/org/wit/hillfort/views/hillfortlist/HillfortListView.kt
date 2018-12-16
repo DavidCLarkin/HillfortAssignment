@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
+import android.widget.SearchView
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.wit.hillfort.R
@@ -31,6 +32,26 @@ class HillfortListView : BaseView(), HillfortListener
             presenter.loadhillforts(favouriteToggle.isChecked)
             recyclerView.adapter?.notifyDataSetChanged()
         }
+
+        // Setting up search view to search and update the adapter
+        hillfortSearchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener
+        {
+            override fun onQueryTextChange(newText: String?): Boolean
+            {
+                presenter.loadhillforts(newText!!)
+                recyclerView.adapter?.notifyDataSetChanged()
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean
+            {
+                presenter.loadhillforts(query!!)
+                recyclerView.adapter?.notifyDataSetChanged()
+                return true
+            }
+
+        })
+
 
         presenter.loadhillforts(favouriteToggle.isChecked)
     }

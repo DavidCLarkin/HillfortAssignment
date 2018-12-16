@@ -54,6 +54,14 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view)
         }
     }
 
+    // Loads hillforts based on whether favourite button is toggled or not
+    fun loadhillforts(containingString: String)
+    {
+        async(UI) {
+            view?.showhillforts(app.hillforts.findAll().filter { it.title.contains(containingString) })
+        }
+    }
+
     fun doLogout()
     {
         FirebaseAuth.getInstance().signOut()
