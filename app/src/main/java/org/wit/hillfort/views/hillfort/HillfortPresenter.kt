@@ -109,7 +109,7 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
     }
 
 
-    fun doAddOrSave(title: String, description: String, notes: String, visited: Boolean, date: String)
+    fun doAddOrSave(title: String, description: String, notes: String, visited: Boolean, date: String, favourite: Boolean)
     {
         hillfort.title = title
         hillfort.description = description
@@ -117,6 +117,7 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
         hillfort.visited = visited
         hillfort.date = date
         hillfort.usersId = FirebaseAuth.getInstance().currentUser!!.uid
+        hillfort.favourite = favourite
         async(UI) {
             if (edit)
             {
@@ -170,6 +171,11 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
                 locationUpdate(location)
             }
         }
+    }
+
+    fun doSetFavourite()
+    {
+        hillfort.favourite = view!!.favouriteButton.isChecked
     }
 
     fun doSetDate()

@@ -29,6 +29,7 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view)
 
     fun doSettings()
     {
+        /*
         val id = FirebaseAuth.getInstance().currentUser!!.uid
         db = FirebaseDatabase.getInstance().reference
         list = FirebaseDatabase.getInstance().getReference(id)
@@ -51,6 +52,7 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view)
         list!!.addValueEventListener(valueEventListener)
         //FirebaseDatabase.getInstance().getReference(id).child("hillforts").addListenerForSingleValueEvent(valueEventListener)
         //println("REFERENCE " + list.size)
+        */
         view?.navigateTo(VIEW.SETTINGS)
     }
 

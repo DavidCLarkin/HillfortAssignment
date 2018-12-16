@@ -34,6 +34,10 @@ class HillfortView : BaseView(), AnkoLogger
             it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
+        favouriteButton.setOnClickListener {
+            presenter.doSetFavourite()
+        }
+
         chooseImage.setOnClickListener { presenter.doSelectImage() }
 
         checkBox.setOnClickListener()
@@ -49,6 +53,7 @@ class HillfortView : BaseView(), AnkoLogger
         notes.setText(hillfort.notes)
         checkBox.isChecked = !hillfort.date.isEmpty()
         date.setText(hillfort.date)
+        favouriteButton.isChecked = hillfort.favourite
         Glide.with(this).load(hillfort.image).into(hillfortImage)
         if (hillfort.image != null)
         {
@@ -79,7 +84,7 @@ class HillfortView : BaseView(), AnkoLogger
                     toast(R.string.enter_hillfort_title)
                 } else
                 {
-                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), notes.text.toString(), checkBox.isChecked, date.text.toString())
+                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), notes.text.toString(), checkBox.isChecked, date.text.toString(), favouriteButton.isChecked)
                 }
             }
         }
