@@ -29,30 +29,6 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view)
 
     fun doSettings()
     {
-        /*
-        val id = FirebaseAuth.getInstance().currentUser!!.uid
-        db = FirebaseDatabase.getInstance().reference
-        list = FirebaseDatabase.getInstance().getReference(id)
-
-        val valueEventListener = object : ValueEventListener
-        {
-            override fun onCancelled(error: DatabaseError)
-            {
-            }
-            override fun onDataChange(dataSnapshot: DataSnapshot)
-            {
-                if (dataSnapshot.exists())
-                {
-                    val list = dataSnapshot.getValue<HillfortModel>(HillfortModel::class.java)
-                    println("LISTSHOWN"+list)
-                }
-                //dataSnapshot.children.mapNotNullTo(list) { it.getValue<HillfortModel>(HillfortModel::class.java) }
-            }
-        }
-        list!!.addValueEventListener(valueEventListener)
-        //FirebaseDatabase.getInstance().getReference(id).child("hillforts").addListenerForSingleValueEvent(valueEventListener)
-        //println("REFERENCE " + list.size)
-        */
         view?.navigateTo(VIEW.SETTINGS)
     }
 
@@ -61,10 +37,20 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view)
         view?.navigateTo(VIEW.MAPS)
     }
 
-    fun loadhillforts()
+    // Loads hillforts based on whether favourite button is toggled or not
+    fun loadhillforts(favouriteToggled: Boolean)
     {
-        async(UI) {
-            view?.showhillforts(app.hillforts.findAll())
+        if(!favouriteToggled)
+        {
+            async(UI) {
+                view?.showhillforts(app.hillforts.findAll())
+            }
+        }
+        else
+        {
+            async(UI){
+                view?.showhillforts(app.hillforts.findAll().filter { it.favourite } )
+            }
         }
     }
 

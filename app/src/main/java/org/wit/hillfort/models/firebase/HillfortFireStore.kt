@@ -30,7 +30,7 @@ class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger
 
     suspend override fun findById(id: Long): HillfortModel?
     {
-        val foundHillfort: HillfortModel? = hillforts.find { p -> p.id == id }
+        val foundHillfort: HillfortModel? = hillforts.find { h -> h.id == id }
         return foundHillfort
     }
 

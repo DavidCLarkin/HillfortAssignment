@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
+import kotlinx.android.synthetic.main.activity_hillfort.*
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.wit.hillfort.R
 import org.wit.hillfort.models.HillfortModel
@@ -24,7 +25,14 @@ class HillfortListView : BaseView(), HillfortListener
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        presenter.loadhillforts()
+
+        // Instead of a favourites view, I just toggle the recycler view to update
+        favouriteToggle.setOnClickListener {
+            presenter.loadhillforts(favouriteToggle.isChecked)
+            recyclerView.adapter?.notifyDataSetChanged()
+        }
+
+        presenter.loadhillforts(favouriteToggle.isChecked)
     }
 
     override fun showhillforts(hillforts: List<HillfortModel>)
@@ -58,7 +66,7 @@ class HillfortListView : BaseView(), HillfortListener
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     {
-        presenter.loadhillforts()
+        presenter.loadhillforts(favouriteToggle.isChecked)
         super.onActivityResult(requestCode, resultCode, data)
     }
 }

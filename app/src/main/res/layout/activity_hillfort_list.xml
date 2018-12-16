@@ -6,26 +6,44 @@
   android:layout_height="match_parent"
   tools:context="org.wit.hillfort.views.hillfortlist.HillfortListView">
 
-  <com.google.android.material.appbar.AppBarLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorAccent"
-    android:fitsSystemWindows="true"
-    app:elevation="0dip"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:fitsSystemWindows="true"
+        app:elevation="0dip"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <androidx.appcompat.widget.Toolbar
-      android:id="@+id/toolbarMain"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:titleTextColor="@color/colorPrimary" />
-  </com.google.android.material.appbar.AppBarLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@color/colorPrimary" />
 
-  <androidx.recyclerview.widget.RecyclerView
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <ToggleButton
+        android:id="@+id/favouriteToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="66dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_resource"
+        android:textOff=""
+        android:textOn=""
+        app:layout_anchor="@+id/recyclerView"
+        app:layout_anchorGravity="bottom|center"></ToggleButton>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
