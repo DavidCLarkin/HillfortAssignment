@@ -109,7 +109,7 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
     }
 
 
-    fun doAddOrSave(title: String, description: String, notes: String, visited: Boolean, date: String, favourite: Boolean)
+    fun doAddOrSave(title: String, description: String, notes: String, visited: Boolean, date: String, favourite: Boolean, rating: Float)
     {
         hillfort.title = title
         hillfort.description = description
@@ -118,6 +118,7 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
         hillfort.date = date
         hillfort.usersId = FirebaseAuth.getInstance().currentUser!!.uid
         hillfort.favourite = favourite
+        hillfort.rating = rating
         async(UI) {
             if (edit)
             {

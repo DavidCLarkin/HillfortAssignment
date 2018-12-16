@@ -54,6 +54,7 @@ class HillfortView : BaseView(), AnkoLogger
         checkBox.isChecked = !hillfort.date.isEmpty()
         date.setText(hillfort.date)
         favouriteButton.isChecked = hillfort.favourite
+        ratingBar.rating = hillfort.rating
         Glide.with(this).load(hillfort.image).into(hillfortImage)
         if (hillfort.image != null)
         {
@@ -84,7 +85,7 @@ class HillfortView : BaseView(), AnkoLogger
                     toast(R.string.enter_hillfort_title)
                 } else
                 {
-                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), notes.text.toString(), checkBox.isChecked, date.text.toString(), favouriteButton.isChecked)
+                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), notes.text.toString(), checkBox.isChecked, date.text.toString(), favouriteButton.isChecked, ratingBar.rating)
                 }
             }
         }
