@@ -7,6 +7,7 @@ import android.view.MenuItem
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.image
 import org.jetbrains.anko.toast
 import org.wit.hillfort.R
 import org.wit.hillfort.helpers.readImageFromPath
@@ -34,16 +35,11 @@ class HillfortView : BaseView(), AnkoLogger
             it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
-        favouriteButton.setOnClickListener {
-            presenter.doSetFavourite()
-        }
+        favouriteButton.setOnClickListener { presenter.doSetFavourite() }
 
         chooseImage.setOnClickListener { presenter.doSelectImage() }
 
-        checkBox.setOnClickListener()
-        {
-            presenter.doSetDate()
-        }
+        checkBox.setOnClickListener { presenter.doSetDate() }
     }
 
     override fun showhillfort(hillfort: HillfortModel)
@@ -87,6 +83,10 @@ class HillfortView : BaseView(), AnkoLogger
                 {
                     presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(), notes.text.toString(), checkBox.isChecked, date.text.toString(), favouriteButton.isChecked, ratingBar.rating)
                 }
+            }
+            R.id.item_share ->
+            {
+                presenter.doShare(lat.text.toString(), lng.text.toString())
             }
         }
         return super.onOptionsItemSelected(item)

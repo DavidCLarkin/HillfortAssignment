@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
+import org.wit.hillfort.R
 import org.wit.hillfort.helpers.checkLocationPermissions
 import org.wit.hillfort.helpers.createDefaultLocationRequest
 import org.wit.hillfort.helpers.isPermissionGranted
@@ -203,6 +204,17 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
             view?.date?.setText("")
             hillfort.date = ""
         }
+    }
+
+    fun doShare(lat: String, long: String)
+    {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.setType("text/plain")
+        val hillfortDetails = "https://www.google.com/maps/dir/?api=1&destination="
+        val latlng = "$hillfortDetails$lat,$long"
+
+        intent.putExtra(Intent.EXTRA_TEXT, latlng)
+        view!!.startActivity(Intent.createChooser(intent, "Share using"))
     }
 
 }
