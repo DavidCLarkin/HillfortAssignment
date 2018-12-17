@@ -58,7 +58,7 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view)
     fun loadhillforts(containingString: String)
     {
         async(UI) {
-            view?.showhillforts(app.hillforts.findAll().filter { it.title.contains(containingString) })
+            view?.showhillforts(app.hillforts.findAll().filter { it.title.toLowerCase().contains(containingString.toLowerCase()) })
         }
     }
 

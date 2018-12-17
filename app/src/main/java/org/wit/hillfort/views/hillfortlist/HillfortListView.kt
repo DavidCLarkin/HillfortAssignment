@@ -49,7 +49,6 @@ class HillfortListView : BaseView(), HillfortListener
                 recyclerView.adapter?.notifyDataSetChanged()
                 return true
             }
-
         })
 
 
