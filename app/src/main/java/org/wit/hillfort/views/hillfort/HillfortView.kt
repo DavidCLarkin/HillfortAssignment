@@ -86,7 +86,7 @@ class HillfortView : BaseView(), AnkoLogger
             }
             R.id.item_share ->
             {
-                presenter.doShare(lat.text.toString(), lng.text.toString())
+                presenter.doShare(lat.text.toString(), lng.text.toString(), hillfortTitle.text.toString())
             }
         }
         return super.onOptionsItemSelected(item)

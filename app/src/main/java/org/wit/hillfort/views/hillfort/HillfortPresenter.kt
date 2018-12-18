@@ -206,14 +206,14 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
         }
     }
 
-    fun doShare(lat: String, long: String)
+    fun doShare(lat: String, long: String, title: String)
     {
         val intent = Intent(Intent.ACTION_SEND)
         intent.setType("text/plain")
-        val hillfortDetails = "https://www.google.com/maps/dir/?api=1&destination="
-        val latlng = "$hillfortDetails$lat,$long"
+        val hillfortDetails = "Link to Location: https://www.google.com/maps/dir/?api=1&destination="
+        val details = "Hillfort name: $title\n$hillfortDetails$lat,$long"
 
-        intent.putExtra(Intent.EXTRA_TEXT, latlng)
+        intent.putExtra(Intent.EXTRA_TEXT, details)
         view!!.startActivity(Intent.createChooser(intent, "Share using"))
     }
 
