@@ -40,6 +40,8 @@ class HillfortView : BaseView(), AnkoLogger
         chooseImage.setOnClickListener { presenter.doSelectImage() }
 
         checkBox.setOnClickListener { presenter.doSetDate() }
+
+        takePicture.setOnClickListener { presenter.dispatchTakePictureIntent() }
     }
 
     override fun showhillfort(hillfort: HillfortModel)

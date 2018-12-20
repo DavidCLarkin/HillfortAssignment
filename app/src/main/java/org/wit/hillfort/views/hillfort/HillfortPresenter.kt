@@ -3,6 +3,11 @@ package org.wit.hillfort.views.hillfort
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Environment
+import android.provider.MediaStore
+import androidx.core.content.FileProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -13,6 +18,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_hillfort.*
+import kotlinx.android.synthetic.main.content_hillfort_map.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.wit.hillfort.R
@@ -23,6 +29,9 @@ import org.wit.hillfort.helpers.showImagePicker
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.models.Location
 import org.wit.hillfort.views.*
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class HillfortPresenter(view: BaseView) : BasePresenter(view)
@@ -34,6 +43,7 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
     var edit = false;
     var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
     val locationRequest = createDefaultLocationRequest()
+    lateinit var currentPhotoPath: String
 
     init
     {
@@ -51,11 +61,28 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
         }
     }
 
+
     @SuppressLint("MissingPermission")
     fun doSetCurrentLocation()
     {
         locationService.lastLocation.addOnSuccessListener {
             locationUpdate(Location(it.latitude, it.longitude))
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File = view!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+                "JPEG_${timeStamp}_", /* prefix */
+                ".jpg", /* suffix */
+                storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+            println("IMAGE PATH: " + currentPhotoPath)
         }
     }
 
@@ -88,6 +115,38 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
         } else
         {
             locationUpdate(defaultLocation)
+        }
+    }
+
+    fun dispatchTakePictureIntent()
+    {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(view!!.packageManager)?.also {
+                val photoFile: File? = try {
+                    createImageFile()
+                }
+                catch (ex: IOException) {
+                    ex.printStackTrace()
+                    null
+                }
+                photoFile.also {
+                    val photoUri: Uri = FileProvider.getUriForFile(
+                            view!!.applicationContext,"org.wit.hillfort.fileprovider",
+                            it!!
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                    view!!.startActivityForResult(takePictureIntent, IMAGE_CAPTURE_REQUEST)
+
+                }
+            }
+        }
+    }
+
+    fun galleryAddPic() {
+        Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
+            val f = File(currentPhotoPath)
+            mediaScanIntent.data = Uri.fromFile(f)
+            view!!.sendBroadcast(mediaScanIntent)
         }
     }
 
@@ -171,6 +230,17 @@ class HillfortPresenter(view: BaseView) : BasePresenter(view)
                 val location = data.extras.getParcelable<Location>("location")
                 hillfort.location = location
                 locationUpdate(location)
+            }
+            IMAGE_CAPTURE_REQUEST ->
+            {
+                galleryAddPic()
+                hillfort.image = currentPhotoPath
+                view?.showhillfort(hillfort)
+                println("IMAGE PATH: "+currentPhotoPath)
+                //val imageBitmap = data.extras.get("data") as Bitmap
+                //view!!.imageView.setImageBitmap(imageBitmap)
+                //hillfort.image = imageBitmap.toString()
+                //view?.showhillfort(hillfort)
             }
         }
     }

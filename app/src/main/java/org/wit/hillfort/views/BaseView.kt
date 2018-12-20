@@ -18,6 +18,8 @@ import org.wit.hillfort.views.settings.SettingsView
 
 val IMAGE_REQUEST = 1
 val LOCATION_REQUEST = 2
+val IMAGE_CAPTURE_REQUEST = 3
+val REQUEST_TAKE_PHOTO = 4
 
 enum class VIEW
 {
