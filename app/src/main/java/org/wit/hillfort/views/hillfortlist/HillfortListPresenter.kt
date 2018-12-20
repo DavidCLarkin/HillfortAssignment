@@ -4,6 +4,7 @@ import android.os.Parcelable
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.wit.hillfort.models.HillfortModel
@@ -54,7 +55,16 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view)
         }
     }
 
-    // Loads hillforts based on whether favourite button is toggled or not
+    fun deleteHillfort(position: Int)
+    {
+        async(UI) {
+            app.hillforts.delete(app.hillforts.findAll().toMutableList().get(position))
+            view!!.recyclerView.adapter!!.notifyDataSetChanged()
+            view!!.recyclerView.adapter!!.notifyItemRangeChanged(position, app.hillforts.findAll().size)
+        }
+    }
+
+    // Loads hillforts based on whether a search criteria
     fun loadhillforts(containingString: String)
     {
         async(UI) {

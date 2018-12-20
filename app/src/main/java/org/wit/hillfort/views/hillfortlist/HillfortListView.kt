@@ -1,11 +1,14 @@
 package org.wit.hillfort.views.hillfortlist
 
 import android.content.Intent
+import android.graphics.*
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
 import android.widget.SearchView
-import kotlinx.android.synthetic.main.activity_hillfort.*
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_hillfort.view.*
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.wit.hillfort.R
 import org.wit.hillfort.models.HillfortModel
@@ -15,6 +18,7 @@ class HillfortListView : BaseView(), HillfortListener
 {
 
     lateinit var presenter: HillfortListPresenter
+    private var p = Paint()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -53,6 +57,7 @@ class HillfortListView : BaseView(), HillfortListener
 
 
         presenter.loadhillforts(favouriteToggle.isChecked)
+        initSwipe()
     }
 
     override fun showhillforts(hillforts: List<HillfortModel>)
@@ -89,4 +94,49 @@ class HillfortListView : BaseView(), HillfortListener
         presenter.loadhillforts(favouriteToggle.isChecked)
         super.onActivityResult(requestCode, resultCode, data)
     }
+
+    private fun initSwipe()
+    {
+        val simpleItemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT)
+        {
+
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean
+            {
+                return false
+            }
+
+            // Delete the hillfort at position swiped
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int)
+            {
+                val position = viewHolder.adapterPosition
+
+                if (direction == ItemTouchHelper.LEFT)
+                {
+                    presenter.deleteHillfort(position)
+                }
+            }
+
+            override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean)
+            {
+
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE)
+                {
+
+                    val itemView = viewHolder.itemView
+                    val height = itemView.bottom.toFloat() - itemView.top.toFloat()
+                    val width = height / 3
+
+                    p.color = Color.parseColor("#D32F2F")
+                    val background = RectF(itemView.right.toFloat() + dX, itemView.top.toFloat(), itemView.right.toFloat(), itemView.bottom.toFloat())
+                    c.drawRect(background, p)
+
+                }
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
 }

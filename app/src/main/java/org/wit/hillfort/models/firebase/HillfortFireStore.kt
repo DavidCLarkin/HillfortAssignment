@@ -17,7 +17,7 @@ import java.io.File
 class HillfortFireStore(val context: Context) : HillfortStore, AnkoLogger
 {
 
-    val hillforts = ArrayList<HillfortModel>()
+    val hillforts = arrayListOf<HillfortModel>()
     lateinit var userId: String
     lateinit var db: DatabaseReference
     lateinit var st: StorageReference
